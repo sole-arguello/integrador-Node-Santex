@@ -11,4 +11,14 @@ const createBook = async (book) => {
     }
 }
 
-module.exports = { createBook }
+const getBook = async (bookId)=> {
+    try{
+        const book = await Book.findByPk(bookId)
+        return book
+    }catch (error){
+        console.error('Error when fetching Book',error)
+        throw error
+    }
+}
+
+module.exports = { createBook, getBook }
