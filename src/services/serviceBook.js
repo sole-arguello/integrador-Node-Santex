@@ -36,6 +36,19 @@ const getBook = async (bookId)=>{
     
 }
 
+const getIsbnBook = async (isbnBook)=>{
+    try{
+        console.log('logica de negocio')
+        const books = await bookProvider.getIsbnBook(isbnBook)
+        return books
+    }catch(err){
+        console.error('The Book Isbn exist', err)
+        throw err
+    }
+
+    
+}
+
 const getAllBook = async ()=>{
     try{
         console.log('logica de negocio')
@@ -49,4 +62,28 @@ const getAllBook = async ()=>{
     
 }
 
-module.exports = { createBook, getBook, getAllBook }
+const updateBook = async (id, body)=> {
+    
+    try{
+        console.log('Logica de negocio')
+        const bookUpdated = await bookProvider.updateBook(id)
+        return bookUpdated
+    }catch (err){
+        console.error('Error updating the book',err)
+        throw err
+    }
+}
+
+const deleteBook = async (id)=> {
+    
+    try{
+        console.log('Logica de negocio')
+        const bookDeleted = await bookProvider.deleteBook(id)
+        return bookDeleted
+    }catch (err){
+        console.error('Error updating the book',err)
+        throw err
+    }
+}
+
+module.exports = { createBook, getBook, getIsbnBook, getAllBook, updateBook, deleteBook }
