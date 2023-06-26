@@ -2,17 +2,21 @@
 
 ## ✔️ Inicio el proyecto Node.js con `npm init`
 
-   
-   ➖ Instalo dependencias `npm i --save-dev nodemon` `npm i --save lodash` 
 
-   ➖ Configuro en el `package.json` el script para correr la aplicacion con `npm run start:dev`
-   
-   ➖ Inatalo Express para el manejo de rutas `npm i --save express`
 
-   ➖ Instalo Sequelize como ORM y sqlite3 para persistencia de datos `npm install sequelize sequelize-cli sqlite3`
+➖ Instalo dependencias `npm i --save-dev nodemon` `npm i --save lodash` 
+
+➖ Configuro en el `package.json` el script para correr la aplicacion con `npm run start:dev`
+   
+➖ Inatalo Express para el manejo de rutas `npm i --save express`
+
+➖ Instalo Sequelize como ORM y sqlite3 para persistencia de datos `npm install sequelize sequelize-cli sqlite3`
+
+
 
 
 ## ✔️ Creo la Estructura con las capas
+
 
 ### La carpeta SRC que contiene el proyecto
 
@@ -46,6 +50,9 @@
     ➖
 
     ➖
+
+
+
 
 ## ✔️ Creo la Relacion entre Library y Book
  - una a muchos `hasMany`, una libreria puede tener muchos libros 
