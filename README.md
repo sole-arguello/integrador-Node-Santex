@@ -88,6 +88,15 @@
          }
    
    ```
+   ## ✔️ Creo la Autenticacion
+
+   ➖ Instalo libreria Passport `npm i --save passport passport-jwt` para la implementacion
+      y las estrategias de la autenticacion
+   ➖ Instalo libreria "jsonwebtoken" `npm i --save jsonwebtoken` que me permite crear un jwt
+
+   Esto es un mecanismo de seguridad para verificar la identidad de un usuario antes de otorgarle
+   acceso a ciertos recursos o funcionalidades. Es un proceso de verificacion de identidad de un
+   usuario que intenta acceder arecursos protegidos en un sistema web. 
 
 
       
