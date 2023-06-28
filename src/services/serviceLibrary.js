@@ -75,4 +75,23 @@ const deleteLibrary = async (id)=> {
     }
 }
 
-module.exports = { createLibrary, getLibrary, getAllLibrary, updateLibrary, deleteLibrary }
+//(AUTH)
+const addBook = async (libraryId, book)=>{
+    try{
+        console.log('logica de negocio')
+        const libraryExist = await libraryProvider.getLibrary(libraryId)
+        if(libraryExist){
+            const bookAggregate = await libraryProvider.addBook(libraryId, book)
+            return bookAggregate
+        }
+        return null
+
+    }catch(err){
+        console.error('The Book exist', err)
+        throw err
+    }
+
+    
+}
+
+module.exports = { createLibrary, getLibrary, getAllLibrary, updateLibrary, deleteLibrary, addBook }
