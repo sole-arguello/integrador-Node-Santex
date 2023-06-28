@@ -13,7 +13,7 @@ const createBook = async (book) => {
         }
         
     }catch(err){
-        console.error('The ISBN exist the Book ', err)
+        console.error('The exist the Book ', err)
         throw err
     }
 }
@@ -30,19 +30,6 @@ const getBook = async (bookId)=>{
         }
     }catch(err){
         console.error('The Book exist', err)
-        throw err
-    }
-
-    
-}
-
-const getIsbnBook = async (isbnBook)=>{
-    try{
-        console.log('logica de negocio')
-        const books = await bookProvider.getIsbnBook(isbnBook)
-        return books
-    }catch(err){
-        console.error('The Book Isbn exist', err)
         throw err
     }
 
@@ -86,4 +73,4 @@ const deleteBook = async (id)=> {
     }
 }
 
-module.exports = { createBook, getBook, getIsbnBook, getAllBook, updateBook, deleteBook }
+module.exports = { createBook, getBook, getAllBook, updateBook, deleteBook }

@@ -24,23 +24,6 @@ const getBook = async (bookId)=> {
     }
 }
 
-const getIsbnBook = async (isbnBook)=> {
-    
-    try{
-        console.log('provider', isbnBook)
-        const books = await Book.findOne({
-            where: {
-                isbn: isbnBook
-            }
-        })
-        console.log(books)
-        return books
-    }catch (error){
-        console.error('Error when fetching Books',error)
-        throw error
-    }
-}
-
 
 const getAllBook = async ()=> {
     
@@ -92,4 +75,4 @@ const deleteBook = async (id)=> {
     }
 }
 
-module.exports = { createBook, getBook, getIsbnBook, getAllBook, updateBook, deleteBook }
+module.exports = { createBook, getBook, getAllBook, updateBook, deleteBook }

@@ -31,19 +31,7 @@ const getBook= async (req, res) =>{
 
   }
 }
-const getIsbnBook= async (req, res) =>{
 
-  try{
-      console.log('Get Isbn Books')
-      const isbnBook = req.params.isbnBook
-      const books = await bookService.getIsbnBook(isbnBook)
-      res.json(books)
-      
-  }catch (err) {
-      res.status(500).json({action: 'getIsbnBook', error: err.message})
-
-  }
-}
 
 const getAllBook= async (req, res) =>{
 
@@ -83,4 +71,4 @@ const deleteBook = async (req, res) =>{
   }
 }
 
-module.exports = { createBook, getBook, getIsbnBook, getAllBook, updateBook, deleteBook }
+module.exports = { createBook, getBook, getAllBook, updateBook, deleteBook }
