@@ -4,7 +4,7 @@ const PORT = 8080
 
 //exportaciones
 const { initializeDB } = require('./config/db-config')
-const { bookRouter, libraryRouter, userRouter } = require('./routes')
+const { bookRouter, libraryRouter, userRouter, authRouter } = require('./routes')
 
 //middleware
 app.use(express.json())
@@ -19,7 +19,7 @@ app.use((req, res, next) => {
 app.use('/book', bookRouter)
 app.use('/library', libraryRouter)
 app.use('/user', userRouter)
-
+app.use('/login', authRouter)
 
 
 
