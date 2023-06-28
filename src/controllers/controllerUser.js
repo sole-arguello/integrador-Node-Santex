@@ -32,9 +32,22 @@ const getUser = async (req, res) =>{
   }
 }
 
+const getAllUsers= async (req, res) =>{
+
+  try{
+      console.log('Get All Users')
+      const users = await userService.getAllUsers()
+      res.json(users)
+      
+  }catch (err) {
+      res.status(500).json({action: 'getAllUsers', error: err.message})
+
+  }
+}
+
 const updateUser = async (req, res) =>{
   try{
-    console.log('updating User')
+    console.log('updating User', req.params.userId)
     const id = req.params.userId
     const body = req.body
     const userUpdated = await userService.updateUser(id, body)
@@ -47,7 +60,7 @@ const updateUser = async (req, res) =>{
 
 const deleteUser = async (req, res) =>{
   try{
-    console.log('Deleting User')
+    console.log('Deleting User',req.params.userId)
     const id = req.params.userId
     const userDeleted = await userService.deleteUser(id)
     res.json(userDeleted)
@@ -58,4 +71,4 @@ const deleteUser = async (req, res) =>{
 }
 
 
-module.exports = { createUser, getUser, updateUser, deleteUser }
+module.exports = { createUser, getUser, getAllUsers, updateUser, deleteUser }

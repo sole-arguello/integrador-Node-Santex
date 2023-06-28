@@ -36,11 +36,24 @@ const getUser = async (userId)=>{
     
 }
 
+const getAllUsers = async ()=>{
+    try{
+        console.log('logica de negocio')
+        const users = await userProvider.getAllUsers()
+        return users
+    }catch(err){
+        console.error('The Users exist', err)
+        throw err
+    }
+
+    
+}
+
 const updateUser = async (id, body)=> {
     
     try{
         console.log('Logica de negocio')
-        const userUpdated = await userProvider.updateUser(id)
+        const userUpdated = await userProvider.updateUser(id, body)
         return userUpdated
     }catch (err){
         console.error('Error updating the User',err)
@@ -61,4 +74,4 @@ const deleteUser = async (id)=> {
 }
 
 
-module.exports = { createUser, getUser, updateUser, deleteUser }
+module.exports = { createUser, getUser,getAllUsers, updateUser, deleteUser }

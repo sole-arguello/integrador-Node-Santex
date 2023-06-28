@@ -23,12 +23,23 @@ const getUser = async (userId)=> {
     }
 }
 
+const getAllUsers = async ()=> {
+    
+    try{
+        const users = await User.findAll()
+        return users
+    }catch (error){
+        console.error('Error when fetching Users',error)
+        throw error
+    }
+}
+
 const updateUser = async (id, body)=> {
     
     try{
         const userUpdated = await User.findByPk(id)
         if(userUpdated){
-            userUpdated.update(body)
+            await userUpdated.update(body)
             return userUpdated
         }else{
             return 'User no exist'
@@ -63,4 +74,4 @@ const deleteUser = async (id)=> {
 }
 
 
-module.exports = { createUser, getUser, updateUser, deleteUser }
+module.exports = { createUser, getUser,getAllUsers, updateUser, deleteUser }
