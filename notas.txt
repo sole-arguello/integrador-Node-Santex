@@ -1,0 +1,196 @@
+inicio de proyecto
+
+npm init
+
+package name: > el que trae por defecto o como quiero llamarlo
+
+version: (1.0.0)
+
+descripcion: Primer proyecto.....
+
+entry point: (index.js) 'por defecto' > nombrarlo app.js
+
+test command: vacio
+
+git repository: vacio
+
+keywords: vacio
+
+author: vacio
+
+license: (ISC)
+
+Dar ok con yes!
+
+--------------------------------------------------------------
+
+En el package.json
+
+"start": "node src/app.js" > forma de correr el script
+
+y dentro de la carpeta src correr > node app.js o npm run start
+
+Instalo
+npm i --save-dev nodemon
+"start:dev": "nodemon src/app.js" > forma de correr el 
+y corro npm run start:dev
+
+npm i --save lodash
+
+---------------------------------------------------------------
+
+librerias incorporadas:
+
+fs > const fs = require('fs')
+
+
+--------------------------------------------------------------
+
+instalo express
+
+npm i --save express
+
+Construyo la aplicacion / pongo a escuchar el puerto / y creo el meddleware
+----------------------------------------------------------------------------
+INDEX exporta los archivos que estan en cada capa de la estructura
+
+CREAR ESTRUCTURA
+DE APLICACION: 
+app.use((req, res) => {
+    console.log(`Call made to resource ${req.url} whith method ${req.method}`)
+    //res.end()
+    next()
+})
+pruebo en insomnia: POST http://localhost:8080/book con respuesta 200 y al dispara send
+
+en consola muestra: Call made to resource /book whith method POST
+
+--------------------------------------------------------------------------------------
+DE RUTA:  exporto desde book las rutas con exports, las importo en app con requiere,
+tambien importo los controlller con requiere para traer los controladores
+
+router.post('/book', bookController.crearBook) // no llamo a la funcion hago referencia de la misma
+
+router.get('/:bookId', bookController.getBook )
+
+Routes: CRUD
+
+get: traigo
+post: creo
+put: actualiza
+detele: elimino
+
+Explicacion de prueba inicial
+app.get('/', (req, res, next) => {
+    res.send('hola')
+})
+pruebo en insomnia: GET http://localhost:8080/ con respuesta 200 y al dispara send
+y devuelve un hola y en consola muestra: Call made to resource / whith method GET
+
+
+app.post('/book', (req, res, next) => {
+    fs.writeFileSync('book.json', JSON.stringify(req.body))
+    res.json(req.body)
+})
+
+pruebo en insomnia: POST http://localhost:8080/book con respuesta 200 y al dispara send
+y devuelve un json creado desde insomnia en mis archivos, en consola 
+Call made to resource /book whith method POST
+
+router.get('/:bookId', (req, res) => {
+    console.log(`Book found with id ${req.params.bookId}`)
+    res.json({ id: req.params.bookId, name: 'Lord of the rings'})
+})
+
+pruebo en insomnia: GET http://localhost:8080/book/1 con respuesta 200 y al dispara send
+y devuelve un libro con su id y datos y en consola un mensaje que se encontro el libro id
+Call made to resource /book whith method GET
+
+IMPORTANTE Y CONCLUSION 
+
+----------------------------------------------------------------------
+
+CONTROLLERS: exporto hacia routes, y en routes con require lo importo,
+aqui va todo lo que va a devolver el sistema, manejo de respuesta del json
+
+const fs = require('fs')
+
+const bookFile = 'book.json'
+const crearBook = (req, res, next) => {
+    if(fs.existsSync(bookFile)) throw new Error('File Existss')
+    fs.writeFileSync(bookFile, JSON.stringify(req.body))
+    res.json(req.body)
+}
+
+----------------------------------------------------------------------------
+
+SERVICIOS: encapsulan la logica de negocio,lo que tiene que hacer el sistema 
+para funcionar
+
+
+---------------------------------------------------------------------------
+
+MODELS: donde contiene los modelos y donde defino como van a representar los 
+datos, como van a ser las tablas 
+
+
+----------------------------------------------------------------------------------
+
+PROVIDERS: donde defino las acciones, son la abstraccion, es la llamda a un servicio
+depersistencia que es nuestra base de datos, crea, modifica, interactua, es el intermediario
+entre el modelo y el servicio (db), esel que sabe que existe sqlite
+
+de aca voy al controlller 
+
+
+
+    {
+      "isbn": 9788498382549,
+      "title": "Cien años de soledad",
+      "author": "Gabriel García Márquez",
+      "year": "1967",
+      "library": 8
+    }
+    {
+      "isbn": 9780679720201,
+      "title": "El principito",
+      "author": "George Orwell",
+      "year": "1949",
+      "library": 2
+    }
+    {
+      "isbn": 9780307276657,
+      "title": "El Gran Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "year": "1925",
+      "library": 5
+    }
+
+
+    ----------------------------------------
+    {
+      "name": "El Librote",
+      "location": "Av. Libertador 1460",
+      "phone": "3514563344"
+    }
+    {
+      "name": "Atenea",
+      "location": "Av. Maipu 1477",
+      "phone": "3514567799"
+    }
+
+       {
+      "name": "El Librote",
+      "location": "Av. La Plata 2098",
+      "phone": "3514563000"
+    }
+
+    ---------------------------------------------
+
+    {
+      "firstName": "Pepe",
+      "lastName": "Lala",
+      "email": "lala@gmail.com",
+      "password": "asd1268"
+    }
+
