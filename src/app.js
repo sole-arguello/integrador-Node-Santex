@@ -4,7 +4,9 @@ const PORT = 8080
 
 //exportaciones
 const { initializeDB } = require('./config/db-config')
+const createData = require('./libs/start-config')
 const { bookRouter, libraryRouter, userRouter, authRouter } = require('./routes')
+
 
 //middleware
 app.use(express.json())
@@ -26,5 +28,6 @@ app.use('/login', authRouter)
 //puerto escuchando
 app.listen(PORT, async () => {
     await initializeDB()
+    createData()
     console.log(`\nServer running in ${PORT}`)
 })

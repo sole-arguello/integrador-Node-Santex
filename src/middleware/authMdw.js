@@ -23,7 +23,7 @@ passport.use(
 const jwtValidMDW = passport.authenticate('jwt', {session: false})
 
 const userIsAdmin = (req, res, next)=> {
-    return passport.authenticate('jwt', {session: false}, (err, user, info) => {
+    return passport.authenticate('jwt', {session: false}, (err, user) => {
         if(err){
             console.error(err)
             return next(err)
