@@ -17,7 +17,6 @@ const createUser = async (req, res) => {
 const getUser = async (req, res) =>{
 
   try{
-      console.log('Get User', req.params.userId)
       const user = await userService.getUser(req.params.userId)
       
       if(!user){
@@ -33,7 +32,6 @@ const getUser = async (req, res) =>{
 const getAllUsers= async (req, res) =>{
 
   try{
-      console.log('Get All Users')
       const users = await userService.getAllUsers()
       if(users.length !== 0){
         res.json(users)
@@ -48,7 +46,6 @@ const getAllUsers= async (req, res) =>{
 
 const updateUser = async (req, res) =>{
   try{
-    console.log('updating User', req.params.userId)
     const id = req.params.userId
     const body = req.body
     const userUpdated = await userService.updateUser(id, body)
@@ -65,7 +62,6 @@ const updateUser = async (req, res) =>{
 
 const deleteUser = async (req, res) =>{
   try{
-    console.log('Deleting User',req.params.userId)
     const id = req.params.userId
     const userDeleted = await userService.deleteUser(id)
     if(userDeleted){
@@ -74,7 +70,7 @@ const deleteUser = async (req, res) =>{
     res.status(404).json({action: 'Delete User', error: 'User Not Found'})
 
   }catch(err){
-    res.status(400).json({action: 'updateUser', error: err.message})
+    res.status(400).json({action: 'deleteUser', error: err.message})
   }
 }
 
