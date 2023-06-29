@@ -15,23 +15,22 @@ const createBook = async (book) => {
 const getBook = async (bookId)=> {
     
     try{
-        console.log('provider', bookId)
-        const book = await Book.findByPk(bookId)
+        const book = await Book.findByPk(bookId)//{include: {all: true}}
         return book
     }catch (error){
-        console.error('Error when fetching Book',error)
+        console.error('Error when Searching Book',error)
         throw error
     }
 }
 
 
-const getAllBook = async ()=> {
+const getAllBooks = async ()=> {
     
     try{
         const books = await Book.findAll()
         return books
     }catch (error){
-        console.error('Error when fetching Books',error)
+        console.error('Error when Searching Books',error)
         throw error
     }
 }
@@ -41,14 +40,12 @@ const updateBook = async (id, body)=> {
     try{
         const bookUpdated = await Book.findByPk(id)
         if(bookUpdated){
-            bookUpdated.update(body)
-            return bookUpdated
-        }else{
-            return 'Book no exist'
+            return await bookUpdated.update(body)
+             
         }
-        
+        return false
     }catch (error){
-        console.error('Error when fetching Books',error)
+        console.error('Error Update Book, Not Found',error)
         throw error
     }
 }
@@ -59,20 +56,19 @@ const deleteBook = async (id)=> {
         const bookFound = await Book.findByPk(id)
         if(bookFound){
             await bookFound.destroy({
-             where: {
-                //deletedAt: 'destroyTime'
-                id: id
-             }
+                where: {
+                    id: id
+                }
             })
             return bookFound
-        }else{
-            return 'Book no exist'
         }
+        return false
+        
         
     }catch (error){
-        console.error('Error when fetching Books',error)
+        console.error('Error Delete Book, Not Found',error)
         throw error
     }
 }
 
-module.exports = { createBook, getBook, getAllBook, updateBook, deleteBook }
+module.exports = { createBook, getBook, getAllBooks, updateBook, deleteBook }
