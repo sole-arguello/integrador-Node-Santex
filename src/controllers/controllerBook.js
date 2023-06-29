@@ -4,10 +4,9 @@ const createBook = async (req, res) => {
   try{
       const newBook = await bookService.createBook(req.body)
       if(!newBook){
-        res.status(404).json({ message: 'Book does not exists'})
-      }else{
-        res.json(newBook)
+        res.status(404).json({ message: 'Error when creating User'})
       }
+      res.json(newBook)
   }catch(err){
       res.status(400).json({ action: 'createBook', error: err.message})
   }
@@ -21,27 +20,30 @@ const getBook= async (req, res) =>{
       const book = await bookService.getBook(req.params.bookId)
       
       if(!book){
-          res.status(404).json({action: 'getBook', error: 'Book Not Found'})
-      }else{
-          res.json(book)
+          res.status(404).json({action: 'Get Book', error: 'Book Not Found'})
       }
+      res.json(book)
+      
       
   }catch (err) {
-      res.status(500).json({action: 'getBook', error: err.message})
+      res.status(400).json({action: 'getBook', error: err.message})
 
   }
 }
 
 
-const getAllBook= async (req, res) =>{
+const getAllBooks= async (req, res) =>{
 
   try{
       console.log('Get All Books')
-      const books = await bookService.getAllBook()
-      res.json(books)
+      const books = await bookService.getAllBooks()
+      if(books.length !== 0){
+        res.json(books)
+      }
+      res.status(404).json({action: 'getBooks', error: 'Books Not Found'})
       
   }catch (err) {
-      res.status(500).json({action: 'getAllBook', error: err.message})
+      res.status(400).json({action: 'getAllBooks', error: err.message})
 
   }
 }
@@ -52,23 +54,27 @@ const updateBook = async (req, res) =>{
     const id = req.params.bookId
     const body = req.body
     const bookUpdated = await bookService.updateBook(id, body)
-    res.json(bookUpdated)
+    if(bookUpdated){
+      res.json(bookUpdated)
+    }
+    res.status(404).json({action: 'Update Book', error: 'Book Not Found'})
   }catch(err){
-    res.status(500).json({action: 'updateBook', error: err.message})
+    res.status(400).json({action: 'updateBook', error: err.message})
   }
 }
 
 
 const deleteBook = async (req, res) =>{
   try{
-    console.log('Deleting book')
     const id = req.params.bookId
     const bookDeleted = await bookService.deleteBook(id)
-    res.json(bookDeleted)
-
+    if(bookDeleted){
+      res.json(bookDeleted)
+    }
+    res.status(404).json({action: 'Delete Book', error: 'Book Not Found'})
   }catch(err){
-    res.status(500).json({action: 'updateBook', error: err.message})
+    res.status(400).json({action: 'deleteBook', error: err.message})
   }
 }
 
-module.exports = { createBook, getBook, getAllBook, updateBook, deleteBook }
+module.exports = { createBook, getBook, getAllBooks, updateBook, deleteBook }
