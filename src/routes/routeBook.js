@@ -1,14 +1,15 @@
 const express = require('express')
 const router = express.Router()
 const { bookController } = require("../controllers")
+const { jwtValidMDW, userIsAdmin } = require('../middleware/authMdw')
 
-router.post('/', bookController.createBook)
+router.post('/', userIsAdmin, bookController.createBook)
 
-router.get('/', bookController.getAllBook)
-router.get('/:bookId', bookController.getBook)
+router.get('/', jwtValidMDW, bookController.getAllBook)
+router.get('/:bookId', jwtValidMDW, bookController.getBook)
 
-router.put('/:bookId', bookController.updateBook)
-router.delete('/:bookId', bookController.deleteBook)
+router.put('/:bookId', userIsAdmin, bookController.updateBook)
+router.delete('/:bookId', userIsAdmin, bookController.deleteBook)
 
  
-module.exports = router 
+module.exports = router
