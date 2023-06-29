@@ -1,59 +1,43 @@
 const { bookProvider } = require('../providers')
 
-//auth
+
 const createBook = async (book) => {
     
     try{
-        console.log('logica de negocio')
         const newBook = await bookProvider.createBook(book)
-        if(!newBook){
-            console.log('Book created', newBook)
-        }else{
-            return newBook
-        }
-        
+        return newBook
     }catch(err){
-        console.error('The exist the Book ', err)
+        console.error('Error when creating Book', err)
         throw err
     }
 }
 
 const getBook = async (bookId)=>{
     try{
-        console.log('logica de negocio')
         const book = await bookProvider.getBook(bookId)
-        if(!book){
-            console.log('Book exist', bookId)
-        }else{
-            
-            return book
-        }
+        return book
     }catch(err){
-        console.error('The Book exist', err)
+        console.error('Error when searching Book', err)
         throw err
     }
 
     
 }
 
-const getAllBook = async ()=>{
+const getAllBooks = async ()=>{
     try{
-        console.log('logica de negocio')
-        const books = await bookProvider.getAllBook()
+        const books = await bookProvider.getAllBooks()
         return books
     }catch(err){
-        console.error('The Book exist', err)
+        console.error('Error when searching Books', err)
         throw err
     }
-
-    
 }
 
 const updateBook = async (id, body)=> {
     
     try{
-        console.log('Logica de negocio')
-        const bookUpdated = await bookProvider.updateBook(id)
+        const bookUpdated = await bookProvider.updateBook(id, body)
         return bookUpdated
     }catch (err){
         console.error('Error updating the book',err)
@@ -64,13 +48,12 @@ const updateBook = async (id, body)=> {
 const deleteBook = async (id)=> {
     
     try{
-        console.log('Logica de negocio')
         const bookDeleted = await bookProvider.deleteBook(id)
         return bookDeleted
     }catch (err){
-        console.error('Error updating the book',err)
+        console.error('Error deleting the book',err)
         throw err
     }
 }
 
-module.exports = { createBook, getBook, getAllBook, updateBook, deleteBook }
+module.exports = { createBook, getBook, getAllBooks, updateBook, deleteBook }
