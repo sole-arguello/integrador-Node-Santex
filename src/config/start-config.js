@@ -13,8 +13,7 @@ const createData = async () =>{
       
           await User.create({
             id: 0,
-            firstName: "admin" ,
-            lastName: "lala",
+            user: "admin" ,
             email: "admin@gmail.com",
             password: "admin",
           });
