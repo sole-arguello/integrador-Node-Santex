@@ -5,7 +5,7 @@ const { jwtValidMDW, userIsAdmin } = require('../middleware/authMdw')
 
 router.post('/', userIsAdmin, bookController.createBook)
 
-router.get('/', jwtValidMDW, bookController.getAllBook)
+router.get('/', jwtValidMDW, bookController.getAllBooks)
 router.get('/:bookId', jwtValidMDW, bookController.getBook)
 
 router.put('/:bookId', userIsAdmin, bookController.updateBook)
