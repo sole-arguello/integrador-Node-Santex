@@ -1,4 +1,5 @@
 
+const { Op } = require('sequelize')
 const { User } = require('../models')
 
 
@@ -7,7 +8,7 @@ const createUser = async (user) => {
         const newUser = await User.create(user)
         return newUser
     }catch(err){
-        console.error('Error when creating User', err)
+        console.error('Error Creating User', err)
         throw err
     }
 }
@@ -18,7 +19,7 @@ const getUser = async (userId)=> {
         const user = await User.findByPk(userId, {include: {all: true}})
         return user
     }catch (error){
-        console.error('Error when fetching User',error)
+        console.error('Error Searching User',error)
         throw error
     }
 }
@@ -29,7 +30,7 @@ const getAllUsers = async ()=> {
         const users = await User.findAll()
         return users
     }catch (error){
-        console.error('Error when fetching Users',error)
+        console.error('Error Serching Users',error)
         throw error
     }
 }
@@ -39,14 +40,12 @@ const updateUser = async (id, body)=> {
     try{
         const userUpdated = await User.findByPk(id)
         if(userUpdated){
-            await userUpdated.update(body)
-            return userUpdated
-        }else{
-            return 'User no exist'
+            return await userUpdated.update(body)
         }
+        return false
         
     }catch (error){
-        console.error('Error when fetching Users',error)
+        console.error('Error Update User, User not found',error)
         throw error
     }
 }
@@ -57,21 +56,40 @@ const deleteUser = async (id)=> {
         const userFound = await User.findByPk(id)
         if(userFound){
             await userFound.destroy({
-             where: {
-                //deletedAt: 'destroyTime'
-                id: id
-             }
+                where: {
+                    id: id
+                }
             })
             return userFound
-        }else{
-            return 'User no exist'
         }
+    
+        return false
+        
         
     }catch (error){
-        console.error('Error when fetching Users',error)
+        console.error('Error Delete User, Not Found',error)
         throw error
     }
 }
 
+const validateUser = async(options)=>{
+    try {
+       const userFound = await User.findAll(
+        {where: {
+               [Op.and]: [{email: options.user},{ password: options.pass}],
+        },
 
-module.exports = { createUser, getUser,getAllUsers, updateUser, deleteUser }
+        });
+        if(userFound.length!= 0){
+
+            return userFound
+        }
+       return false;
+    } catch (err) {
+       console.error('Error when validating User', err)
+      return false;
+    }
+   };
+
+
+module.exports = { createUser, getUser,getAllUsers, updateUser, deleteUser, validateUser }
