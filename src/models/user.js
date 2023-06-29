@@ -12,11 +12,6 @@ const User = sequelize.define('Users', {
     user: {
         type: DataTypes.STRING,
         allowNull: false,
-        // validate: {
-        //     is: /^[a-z]+$/i,
-        //     len: [3],
-        //     msg: "El campo debe ser mayor a 3 caracteres",
-        // },
     },
     email: {
         type: DataTypes.STRING,
@@ -35,12 +30,7 @@ const User = sequelize.define('Users', {
     password: {
         type: DataTypes.STRING,
         allowNull: false,
-        // validate: {
-        //     len: [4],
-        //     msg: "El password debe ser minimo 4 caracteres",
-        // },
-
-    },
+    }
 },{
     paranoid: true,
 })
