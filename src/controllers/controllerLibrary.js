@@ -5,10 +5,9 @@ const createLibrary = async (req, res) => {
   try{
       const newLibrary = await libraryService.createLibrary(req.body)
       if(!newLibrary){
-        res.status(404).json({ message: 'Library does not exists'})
-      }else{
-        res.json(newLibrary)
+        res.status(404).json({ message: 'Error when creating Library'})
       }
+      res.json(newLibrary)
   }catch(err){
       res.status(400).json({ action: 'createLibrary', error: err.message})
   }
@@ -22,13 +21,12 @@ const getLibrary = async (req, res) =>{
       const library = await libraryService.getLibrary(req.params.libraryId)
       
       if(!library){
-          res.status(404).json({action: 'getLibrary', error: 'Library Not Found'})
-      }else{
-          res.json(library)
+          res.status(404).json({action: 'Get Library', error: 'Library Not Found'})
       }
+      res.json(library)
       
-  }catch (err) {
-      res.status(500).json({action: 'getLibrary', error: err.message})
+    }catch (err) {
+      res.status(400).json({action: 'getLibrary', error: err.message})
 
   }
 }
@@ -36,35 +34,41 @@ const getLibrary = async (req, res) =>{
 const getAllLibrary = async (req, res) =>{
 
   try{
-      console.log('Get All Libraries')
       const libraries = await libraryService.getAllLibrary()
-      res.json(libraries)
+      if(libraries.length !== 0){
+        res.json(libraries)
+      }
+      res.status(404).json({action: 'getLibrary', error: 'Library Not Found'})
       
   }catch (err) {
-      res.status(500).json({action: 'getAllLibraries', error: err.message})
+      res.status(400).json({action: 'getAllLibraries', error: err.message})
 
   }
 }
 
 const updateLibrary = async (req, res) =>{
   try{
-    console.log('updating library')
     const id = req.params.libraryId
     const body = req.body
     const libraryUpdated = await libraryService.updateLibrary(id, body)
-    res.json(libraryUpdated)
+    if(libraryUpdated){
+      res.json(libraryUpdated)
+    }
+    res.status(404).json({action: 'Update Library', error: 'Library Not Found'})
   }catch(err){
-    res.status(500).json({action: 'updateLibrary', error: err.message})
+    res.status(400).json({action: 'updateLibrary', error: err.message})
   }
 }
 
 
 const deleteLibrary = async (req, res) =>{
   try{
-    console.log('Deleting Library')
     const id = req.params.libraryId
     const libraryDeleted = await libraryService.deleteLibrary(id)
-    res.json(libraryDeleted)
+    if(libraryDeleted){
+      res.json(libraryDeleted)
+    }
+    res.status(404).json({action: 'Delete Library', error: 'Library Not Found'})
 
   }catch(err){
     res.status(500).json({action: 'updateLibrary', error: err.message})
@@ -73,17 +77,16 @@ const deleteLibrary = async (req, res) =>{
 
 const addBook = async (req, res) => {
   try{
-    console.log('Get Library', req.params.libraryId)
     const library = await libraryService.addBook(req.params.libraryId, req.body)
     
     if(!library){
-        res.status(404).json({action: 'Not addBook', error: 'Library Not Found'})
-    }else{
-        res.json(library)
+        res.status(404).json({action: 'Not Add Book', error: 'Library Not Found'})
     }
+    res.json(library)
+  
     
   }catch (err) {
-      res.status(500).json({action: 'addBook', error: err.message})
+      res.status(400).json({action: 'addBook', error: err.message})
 
   }
 

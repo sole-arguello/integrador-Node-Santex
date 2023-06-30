@@ -14,7 +14,7 @@ const createLibrary = async (library) => {
 const getLibrary = async (libraryId)=> {
 
     try{
-        const library = await Library.findByPk(libraryId)
+        const library = await Library.findByPk(libraryId, {include: {all: true}})
         return library
     }catch (error){
         console.error('Error when fetching Library',error)
@@ -25,10 +25,10 @@ const getLibrary = async (libraryId)=> {
 const getAllLibraries = async ()=> {
     
     try{
-        const libraries = await Library.findAll()
+        const libraries = await Library.findAll({include: {all: true}})
         return libraries
     }catch (error){
-        console.error('Error when fetching Libraries',error)
+        console.error('Error when Searching Libraries',error)
         throw error
     }
 }
@@ -38,14 +38,13 @@ const updateLibrary = async (id, body)=> {
     try{
         const libraryUpdated = await Library.findByPk(id)
         if(libraryUpdated){
-            libraryUpdated.update(body)
-            return libraryUpdated
-        }else{
-            return 'Library no exist'
+           return await libraryUpdated.update(body)
+            
         }
+        return false
         
     }catch (error){
-        console.error('Error when fetching Libraries',error)
+        console.error('Error Update Library, Not Found',error)
         throw error
     }
 }
@@ -56,17 +55,17 @@ const deleteLibrary = async (id)=> {
         const libraryFound = await Library.findByPk(id)
         if(libraryFound){
             await libraryFound.destroy({
-             where: {
-                id: id
-             }
+                where: {
+                    id: id
+                }
             })
+            Book.update( { library: null }, { where: { library: libraryId } } )
             return libraryFound
-        }else{
-            return 'Library no exist'
         }
+        return false
         
     }catch (error){
-        console.error('Error when fetching Libraries',error)
+        console.error('Error Delete Library, Not Found',error)
         throw error
     }
 }
@@ -74,10 +73,16 @@ const deleteLibrary = async (id)=> {
 const addBook = async (libraryId, book) => {
     
     try{
-        const bookAdd = await Book.create({...book, library:libraryId })
-        return bookAdd
+        const libraryFound = Library.findByPk(libraryId)
+        if(libraryFound){
+            const bookAdd = await Book.create({ ...book, "library":libraryId })
+            return bookAdd
+        }
+        return false
+
+
     }catch (error){
-        console.error('Error when creating Book in Library',error)
+        console.error('Error Create Book in Library',error)
         throw error
     }
 }

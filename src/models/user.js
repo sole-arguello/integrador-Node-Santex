@@ -17,7 +17,7 @@ const User = sequelize.define('Users', {
         type: DataTypes.STRING,
         allowNull: false,
         unique: {
-            arg: true,
+            args: true,
             msg: 'El correo ya ha sido registrado'
         },
         validate: {

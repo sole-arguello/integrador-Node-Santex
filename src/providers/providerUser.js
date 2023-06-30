@@ -73,7 +73,9 @@ const deleteUser = async (id)=> {
 }
 
 const validateUser = async(options)=>{
+
     try {
+      
        const userFound = await User.findAll(
         {where: {
                [Op.and]: [{email: options.user},{ password: options.pass}],
@@ -89,7 +91,7 @@ const validateUser = async(options)=>{
        console.error('Error when validating User', err)
       return false;
     }
-   };
+};
 
 
 module.exports = { createUser, getUser,getAllUsers, updateUser, deleteUser, validateUser }

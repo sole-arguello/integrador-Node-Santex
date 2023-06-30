@@ -180,7 +180,7 @@ de aca voy al controlller
     }
 
        {
-      "name": "El Librote",
+      "name": "El Maipu",
       "location": "Av. La Plata 2098",
       "phone": "3514563000"
     }
@@ -188,9 +188,8 @@ de aca voy al controlller
     ---------------------------------------------
 
     {
-      "firstName": "Pepe",
-      "lastName": "Lala",
+      "user": "Pepe",
       "email": "lala@gmail.com",
-      "password": "asd1268"
+      "password": "123456"
     }
 
