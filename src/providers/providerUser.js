@@ -78,7 +78,8 @@ const validateUser = async(options)=>{
       
        const userFound = await User.findAll(
         {where: {
-               [Op.and]: [{email: options.user},{ password: options.pass}],
+               [Op.and]: [{email: options.user},
+                { password: options.pass}],
         },
 
         });

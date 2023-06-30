@@ -15,7 +15,7 @@ const createBook = async (book) => {
 const getBook = async (bookId)=> {
     
     try{
-        const book = await Book.findByPk(bookId)//{include: {all: true}}
+        const book = await Book.findByPk(bookId)
         return book
     }catch (error){
         console.error('Error when Searching Book',error)

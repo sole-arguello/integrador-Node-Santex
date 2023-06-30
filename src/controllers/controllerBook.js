@@ -9,7 +9,7 @@ const createBook = async (req, res) => {
       res.json(newBook)
       
   }catch(err){
-      res.status(400).json({ action: 'createBook', error: err.message})
+      res.status(400).json({ action: 'Create Book', error: err.message})
   }
 
 }
@@ -17,7 +17,6 @@ const createBook = async (req, res) => {
 const getBook= async (req, res) =>{
 
   try{
-      console.log('Get book', req.params.bookId)
       const book = await bookService.getBook(req.params.bookId)
       
       if(!book){
@@ -41,7 +40,7 @@ const getAllBooks = async (req, res) =>{
       }
       res.status(404).json({action: 'getBook', error: 'Book Not Found'})
       
-  }catch (err) {
+  }catch(err) {
       res.status(400).json({action: 'getAllBooks', error: err.message})
 
   }

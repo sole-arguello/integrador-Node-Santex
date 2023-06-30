@@ -34,7 +34,7 @@ const Book = sequelize.define('Books', {
     library: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        foreignKey:true,
+        foreignKey: true,
     }
 },{
     paranoid: true,

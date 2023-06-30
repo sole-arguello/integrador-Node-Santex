@@ -7,7 +7,6 @@ const Library = sequelize.define('Libraries', {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-        unique: true,
     },
     name: {
         type: DataTypes.STRING,
@@ -25,7 +24,11 @@ const Library = sequelize.define('Libraries', {
     paranoid: true,
 })
 
-Library.hasMany(Book)
+Library.hasMany(Book, {foreignKey: 'library'}, { 
+    onDelete: 'cascade',
+    onUpdate: 'cascade',
+    hooks: true, 
+  })
 Book.belongsTo(Library)
 
 module.exports = Library

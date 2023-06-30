@@ -9,7 +9,7 @@ const createLibrary = async (req, res) => {
       }
       res.json(newLibrary)
   }catch(err){
-      res.status(400).json({ action: 'createLibrary', error: err.message})
+      res.status(400).json({ action: 'Create Library', error: err.message})
   }
 
 }
@@ -17,13 +17,14 @@ const createLibrary = async (req, res) => {
 const getLibrary = async (req, res) =>{
 
   try{
-      console.log('Get Library', req.params.libraryId)
       const library = await libraryService.getLibrary(req.params.libraryId)
       
       if(!library){
           res.status(404).json({action: 'Get Library', error: 'Library Not Found'})
+      }else{
+        res.json(library)
       }
-      res.json(library)
+     
       
     }catch (err) {
       res.status(400).json({action: 'getLibrary', error: err.message})
@@ -69,9 +70,9 @@ const deleteLibrary = async (req, res) =>{
       res.json(libraryDeleted)
     }
     res.status(404).json({action: 'Delete Library', error: 'Library Not Found'})
-
+    
   }catch(err){
-    res.status(500).json({action: 'updateLibrary', error: err.message})
+    res.status(400).json({action: 'deleteLibrary', error: err.message})
   }
 }
 
