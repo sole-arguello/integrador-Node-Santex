@@ -17,16 +17,18 @@
 
 
 
-## ✔️ Creo la Estructura con las capas
+## ✔️ Creo la Estructura con las capas 
 
 
 ### Comienzo con la carpeta SRC que contiene las capas del proyecto
 
-    ➖ "Config" contiene la configuracion de la db (base de datos), la creacion del 'usuario 
+    ➖ "Config" 
+    Contiene la configuracion de la db (base de datos), la creacion del 'usuario 
     admin' al momento de iniciar la base de datos, que es el autorizado a Crear, Actualizar y
     eliminar registros de la db. Mientras que otros usuarios solo pueden consultar.
 
-    ➖ "Middleware" es donde defino el logeo de usuarios y su auntenticcion para luego 
+    ➖ "Middleware" 
+    Es donde defino el logeo de usuarios y su auntenticcion para luego 
     proteger las rutas. De tal manera que solo el usuario 'admin' recibe un token de autorizacion que al estar logeado como `user: admin y pass: admin` lo autoriza a poder hacer el CRUD de registros de la db, mientras que los demas usuarios reciben un token que los autoriza a logearse como `user: email@gmail.com y pass: contraseña de 6 digitos` y  solo les permite consultar
     
     ➖ "app.js" es donde hago correr el servidor y que escuche el puerto, para hacer las 
