@@ -1,4 +1,6 @@
-# Integrador Node.js Express Sequelize Sqlite3
+# Trabajo Integrador XAcademy - Santex 
+
+### Herramientas: Node.js - Express - Sequelize - Sqlite3 - Passport - JWT
 
 ## ✔️ Inicio el proyecto Node.js con `npm init`
 
@@ -18,19 +20,37 @@
 ## ✔️ Creo la Estructura con las capas
 
 
-### Comienzo con la carpeta SRC que contiene las capas el proyecto
+### Comienzo con la carpeta SRC que contiene las capas del proyecto
 
-    ➖ "Config" contiene la configuracion de la db (base de datos), la creacion del usuario 
-    admin al momento de iniciar la base de datos.
+    ➖ "Config" contiene la configuracion de la db (base de datos), la creacion del 'usuario 
+    admin' al momento de iniciar la base de datos, que es el autorizado a Crear, Actualizar y
+    eliminar registros de la db. Mientras que otros usuarios solo pueden consultar.
+
+    ➖ "Middleware" es donde defino el logeo de usuarios y su auntenticcion para luego 
+    proteger las rutas. De tal manera que solo el usuario 'admin' recibe un token de autorizacion que al estar logeado como `user: admin y pass: admin` lo autoriza a poder hacer el CRUD de registros de la db, mientras que los demas usuarios reciben un token que los autoriza a logearse como `user: email@gmail.com y pass: contraseña de 6 digitos` y  solo les permite consultar
     
-    ➖ "app.js" es donde hago correr el servidor y que escuche el puerto, para hacer las consultas de las rutas 
-       de Book, Library, User y login usando del middleware 'use' propio de la libreria
+    ➖ "app.js" es donde hago correr el servidor y que escuche el puerto, para hacer las 
+    consultas de las rutas de Book, Library, User y login de usuarios usando del middleware 'use'
+    propio de la libreria
     
     ➖ "Routes" es donde hago los llamados a las diferentes rutas de consulta y para el CRUD 
           
           En insomnia hago las consutas:
+
               Post creo un registro (create)
+
+               - En el caso del Book, se puede crear asignado o no a una libreria.
+               - En el caso de Library, al crearse no debe poseer libros, pero una vez creada
+               puede agregar libros.
+
               Get consulto el/los registro (get)
+
+               - En el caso de Book debe poder consultar por un libro en particular, por medio
+               de su id y por todos los libros creados 
+               - En el caso de Library debe poder consultar por una libreria en particular, por 
+               medio de su id y los libros que hay en ella, como asi tambien poder consultar por 
+               todas sus librerias y libros en cada una de ellas.
+
               Put edito un registro (update)
               Delete elimino un registro (delete)
           
@@ -43,7 +63,7 @@
     ➖ "Models" es donde defino los modelo Book, Library, User, defino como se van a representar
       los datos (tablas) en la db.
 
-    ➖ "Middleware" es donde defino el logeo del usuario y su auntenticcion
+   
 
 
 
