@@ -3,10 +3,9 @@ const { bookService } = require('../services')
 const createBook = async (req, res) => {
   try{
       const newBook = await bookService.createBook(req.body)
-      if(!newBook){
-        res.status(404).json({ message: 'Error when creating Book'})
-      }
-      res.json(newBook)
+      !newBook
+      ? res.status(404).json({ message: 'Error when creating Book'})
+      : res.json(newBook)
       
   }catch(err){
       res.status(400).json({ action: 'Create Book', error: err.message})
